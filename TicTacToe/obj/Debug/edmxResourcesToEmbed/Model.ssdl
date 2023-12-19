@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TicTacToeDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Games">
+    <Key>
+      <PropertyRef Name="GameId" />
+    </Key>
+    <Property Name="GameId" Type="int" Nullable="false" />
+    <Property Name="Player1ID" Type="int" Nullable="false" />
+    <Property Name="Player2ID" Type="int" Nullable="false" />
+    <Property Name="WinnerID" Type="int" />
+    <Property Name="DatePlay" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Moves">
+    <Key>
+      <PropertyRef Name="MoveId" />
+    </Key>
+    <Property Name="MoveId" Type="int" Nullable="false" />
+    <Property Name="GameId" Type="int" Nullable="false" />
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+    <Property Name="MoveNumber" Type="int" Nullable="false" />
+    <Property Name="RowIndex" Type="int" Nullable="false" />
+    <Property Name="ColumnIndex" Type="int" Nullable="false" />
+    <Property Name="Symbol" Type="char" MaxLength="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="int" Nullable="false" />
+    <Property Name="PlayerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TotalGamesPlayed" Type="int" Nullable="false" />
+    <Property Name="Wins" Type="int" Nullable="false" />
+    <Property Name="Loses" Type="int" Nullable="false" />
+    <Property Name="Draws" Type="int" Nullable="false" />
+    <Property Name="LastLogin" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="Player">
+    <End Role="Players" Type="Self.Players" Multiplicity="1" />
+    <End Role="Moves" Type="Self.Moves" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Moves">
+        <PropertyRef Name="PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Player1ToID">
+    <End Role="Players" Type="Self.Players" Multiplicity="1" />
+    <End Role="Games" Type="Self.Games" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Games">
+        <PropertyRef Name="Player1ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Player2ToID">
+    <End Role="Players" Type="Self.Players" Multiplicity="1" />
+    <End Role="Games" Type="Self.Games" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Games">
+        <PropertyRef Name="Player2ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Pord">
+    <End Role="Games" Type="Self.Games" Multiplicity="1" />
+    <End Role="Moves" Type="Self.Moves" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Moves">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Winner">
+    <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+    <End Role="Games" Type="Self.Games" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Games">
+        <PropertyRef Name="WinnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TicTacToeDbModelStoreContainer">
+    <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Moves" EntityType="Self.Moves" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="Player" Association="Self.Player">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Moves" EntitySet="Moves" />
+    </AssociationSet>
+    <AssociationSet Name="Player1ToID" Association="Self.Player1ToID">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Games" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="Player2ToID" Association="Self.Player2ToID">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Games" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="Pord" Association="Self.Pord">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Moves" EntitySet="Moves" />
+    </AssociationSet>
+    <AssociationSet Name="Winner" Association="Self.Winner">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Games" EntitySet="Games" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
