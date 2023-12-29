@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TicTacToeDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="GameId" />
+    </Key>
+    <Property Name="GameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Player1ID" Type="Int32" Nullable="false" />
+    <Property Name="Player2ID" Type="Int32" Nullable="false" />
+    <Property Name="WinnerID" Type="Int32" />
+    <Property Name="DatePlay" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Player" Relationship="Self.Player1ToID" FromRole="Games" ToRole="Players" />
+    <NavigationProperty Name="Player1" Relationship="Self.Player2ToID" FromRole="Games" ToRole="Players" />
+    <NavigationProperty Name="Moves" Relationship="Self.Pord" FromRole="Games" ToRole="Moves" />
+    <NavigationProperty Name="Player2" Relationship="Self.Winner" FromRole="Games" ToRole="Players" />
+  </EntityType>
+  <EntityType Name="Move">
+    <Key>
+      <PropertyRef Name="MoveId" />
+    </Key>
+    <Property Name="MoveId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GameId" Type="Int32" Nullable="false" />
+    <Property Name="PlayerId" Type="Int32" Nullable="false" />
+    <Property Name="MoveNumber" Type="Int32" Nullable="false" />
+    <Property Name="RowIndex" Type="Int32" Nullable="false" />
+    <Property Name="ColumnIndex" Type="Int32" Nullable="false" />
+    <Property Name="Symbol" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Game" Relationship="Self.Pord" FromRole="Moves" ToRole="Games" />
+    <NavigationProperty Name="Player" Relationship="Self.Player1" FromRole="Moves" ToRole="Players" />
+  </EntityType>
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PlayerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TotalGamesPlayed" Type="Int32" Nullable="false" />
+    <Property Name="Wins" Type="Int32" Nullable="false" />
+    <Property Name="Loses" Type="Int32" Nullable="false" />
+    <Property Name="Draws" Type="Int32" Nullable="false" />
+    <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Games" Relationship="Self.Player1ToID" FromRole="Players" ToRole="Games" />
+    <NavigationProperty Name="Games1" Relationship="Self.Player2ToID" FromRole="Players" ToRole="Games" />
+    <NavigationProperty Name="Games2" Relationship="Self.Winner" FromRole="Players" ToRole="Games" />
+    <NavigationProperty Name="Moves" Relationship="Self.Player1" FromRole="Players" ToRole="Moves" />
+  </EntityType>
+  <Association Name="Player1ToID">
+    <End Role="Players" Type="Self.Player" Multiplicity="1" />
+    <End Role="Games" Type="Self.Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Games">
+        <PropertyRef Name="Player1ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Player2ToID">
+    <End Role="Players" Type="Self.Player" Multiplicity="1" />
+    <End Role="Games" Type="Self.Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Games">
+        <PropertyRef Name="Player2ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Pord">
+    <End Role="Games" Type="Self.Game" Multiplicity="1" />
+    <End Role="Moves" Type="Self.Move" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Games">
+        <PropertyRef Name="GameId" />
+      </Principal>
+      <Dependent Role="Moves">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Winner">
+    <End Role="Players" Type="Self.Player" Multiplicity="0..1" />
+    <End Role="Games" Type="Self.Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Games">
+        <PropertyRef Name="WinnerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Player1">
+    <End Role="Players" Type="Self.Player" Multiplicity="1" />
+    <End Role="Moves" Type="Self.Move" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Players">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Moves">
+        <PropertyRef Name="PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TicTacToeDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Games" EntityType="Self.Game" />
+    <EntitySet Name="Moves" EntityType="Self.Move" />
+    <EntitySet Name="Players" EntityType="Self.Player" />
+    <AssociationSet Name="Player1ToID" Association="Self.Player1ToID">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Games" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="Player2ToID" Association="Self.Player2ToID">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Games" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="Pord" Association="Self.Pord">
+      <End Role="Games" EntitySet="Games" />
+      <End Role="Moves" EntitySet="Moves" />
+    </AssociationSet>
+    <AssociationSet Name="Winner" Association="Self.Winner">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Games" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="Player" Association="Self.Player1">
+      <End Role="Players" EntitySet="Players" />
+      <End Role="Moves" EntitySet="Moves" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

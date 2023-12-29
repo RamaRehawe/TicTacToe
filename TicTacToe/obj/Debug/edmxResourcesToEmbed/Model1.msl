@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TicTacToeDbModelStoreContainer" CdmEntityContainer="TicTacToeDbEntities">
+    <EntitySetMapping Name="Games">
+      <EntityTypeMapping TypeName="TicTacToeDbModel.Game">
+        <MappingFragment StoreEntitySet="Games">
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="Player1ID" ColumnName="Player1ID" />
+          <ScalarProperty Name="Player2ID" ColumnName="Player2ID" />
+          <ScalarProperty Name="WinnerID" ColumnName="WinnerID" />
+          <ScalarProperty Name="DatePlay" ColumnName="DatePlay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Moves">
+      <EntityTypeMapping TypeName="TicTacToeDbModel.Move">
+        <MappingFragment StoreEntitySet="Moves">
+          <ScalarProperty Name="MoveId" ColumnName="MoveId" />
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="MoveNumber" ColumnName="MoveNumber" />
+          <ScalarProperty Name="RowIndex" ColumnName="RowIndex" />
+          <ScalarProperty Name="ColumnIndex" ColumnName="ColumnIndex" />
+          <ScalarProperty Name="Symbol" ColumnName="Symbol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="TicTacToeDbModel.Player">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+          <ScalarProperty Name="TotalGamesPlayed" ColumnName="TotalGamesPlayed" />
+          <ScalarProperty Name="Wins" ColumnName="Wins" />
+          <ScalarProperty Name="Loses" ColumnName="Loses" />
+          <ScalarProperty Name="Draws" ColumnName="Draws" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
