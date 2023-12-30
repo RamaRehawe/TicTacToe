@@ -131,6 +131,7 @@
             this.Controls.Add(this.userNameSignUpTextBox);
             this.Controls.Add(this.registerButton);
             this.Name = "SignUp";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sign Up";
             this.ResumeLayout(false);
             this.PerformLayout();

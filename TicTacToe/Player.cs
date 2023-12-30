@@ -25,11 +25,11 @@ namespace TicTacToe
     
         public int PlayerId { get; set; }
         public string PlayerName { get; set; }
-        public int TotalGamesPlayed { get; set; }
+        public Nullable<int> TotalGamesPlayed { get; set; }
         public Nullable<int> Wins { get; set; }
         public Nullable<int> Loses { get; set; }
         public Nullable<int> Draws { get; set; }
-        public System.DateTime LastLogin { get; set; }
+        public Nullable<System.DateTime> LastLogin { get; set; }
         public string Password { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

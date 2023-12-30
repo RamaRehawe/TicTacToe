@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -43,22 +44,24 @@ namespace TicTacToe
             string username = userNameSignUpTextBox.Text.Trim();
             string password = passWordSignUpTextBox.Text;
             string cPassword = cPassWordSignUpTextBox.Text;
+            
 
             if(string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(cPassword))
             {
                 MessageBox.Show("Please fill in all the fields.");
                 return;
             }
-            if (password != cPassword)
+            if(password != cPassword)
             {
                 MessageBox.Show("Passwords do not match. Please re-enter.");
                 return;
             }
-            if(dbEntities.Players.Any(u=> u.PlayerName == username))
-            { 
+            if (dbEntities.Players.Any(u => u.PlayerName == username))
+            {
                 MessageBox.Show("Username already exists. Please choose a different one.");
                 return;
             }
+
             Player newPlayer = new Player
             {
                 PlayerName = username,
@@ -72,11 +75,11 @@ namespace TicTacToe
                 dbEntities.SaveChanges();
                 MessageBox.Show("Registration successful!");
                 this.Close();
-            }
-            catch(Exception ex)
+            }catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred during registration: {ex.Message}");
             }
+
         }
     }
 }

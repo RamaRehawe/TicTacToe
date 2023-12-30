@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.UserNameLoginTextBox = new System.Windows.Forms.TextBox();
+            this.userNameLoginTextBox = new System.Windows.Forms.TextBox();
             this.PassWordLoginTextBox = new System.Windows.Forms.TextBox();
             this.userNameLabel = new System.Windows.Forms.Label();
             this.passWordLabel = new System.Windows.Forms.Label();
@@ -38,17 +38,18 @@
             this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // UserNameLoginTextBox
+            // userNameLoginTextBox
             // 
-            this.UserNameLoginTextBox.Location = new System.Drawing.Point(179, 42);
-            this.UserNameLoginTextBox.Name = "UserNameLoginTextBox";
-            this.UserNameLoginTextBox.Size = new System.Drawing.Size(313, 24);
-            this.UserNameLoginTextBox.TabIndex = 0;
+            this.userNameLoginTextBox.Location = new System.Drawing.Point(179, 42);
+            this.userNameLoginTextBox.Name = "userNameLoginTextBox";
+            this.userNameLoginTextBox.Size = new System.Drawing.Size(313, 24);
+            this.userNameLoginTextBox.TabIndex = 0;
             // 
             // PassWordLoginTextBox
             // 
             this.PassWordLoginTextBox.Location = new System.Drawing.Point(179, 95);
             this.PassWordLoginTextBox.Name = "PassWordLoginTextBox";
+            this.PassWordLoginTextBox.PasswordChar = '*';
             this.PassWordLoginTextBox.Size = new System.Drawing.Size(313, 24);
             this.PassWordLoginTextBox.TabIndex = 1;
             // 
@@ -130,8 +131,9 @@
             this.Controls.Add(this.passWordLabel);
             this.Controls.Add(this.userNameLabel);
             this.Controls.Add(this.PassWordLoginTextBox);
-            this.Controls.Add(this.UserNameLoginTextBox);
+            this.Controls.Add(this.userNameLoginTextBox);
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -140,7 +142,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox UserNameLoginTextBox;
+        private System.Windows.Forms.TextBox userNameLoginTextBox;
         private System.Windows.Forms.TextBox PassWordLoginTextBox;
         private System.Windows.Forms.Label userNameLabel;
         private System.Windows.Forms.Label passWordLabel;
