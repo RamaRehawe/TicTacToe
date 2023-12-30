@@ -82,6 +82,7 @@
             this.loginButton.TabIndex = 4;
             this.loginButton.Text = "Login";
             this.loginButton.UseVisualStyleBackColor = true;
+            this.loginButton.Click += new System.EventHandler(this.loginButton_Click);
             // 
             // SignUpClickLink
             // 
@@ -116,7 +117,7 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // FormLogin
+            // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -130,7 +131,7 @@
             this.Controls.Add(this.userNameLabel);
             this.Controls.Add(this.PassWordLoginTextBox);
             this.Controls.Add(this.UserNameLoginTextBox);
-            this.Name = "FormLogin";
+            this.Name = "Login";
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();

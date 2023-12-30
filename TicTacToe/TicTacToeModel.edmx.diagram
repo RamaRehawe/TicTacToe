@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a3c77902be77420986b194de37bae27c" Name="Diagram1" ZoomLevel="101">
-        <EntityTypeShape EntityType="TicTacToeDbModel.Game" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" FillColor="LightCoral" />
-        <EntityTypeShape EntityType="TicTacToeDbModel.Move" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" FillColor="LightCoral" />
-        <EntityTypeShape EntityType="TicTacToeDbModel.Player" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" FillColor="LightCoral" />
+      <Diagram DiagramId="4779e06653174c9493a6c4364bf7e918" Name="Diagram1" ZoomLevel="24">
+        <EntityTypeShape EntityType="TicTacToeDbModel.Game" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TicTacToeDbModel.Move" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TicTacToeDbModel.Player" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="TicTacToeDbModel.Player1ToID" ManuallyRouted="false" />
         <AssociationConnector Association="TicTacToeDbModel.Player2ToID" ManuallyRouted="false" />
         <AssociationConnector Association="TicTacToeDbModel.Pord" ManuallyRouted="false" />

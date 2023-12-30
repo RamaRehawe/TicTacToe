@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.exiteButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // registerButton
@@ -47,6 +47,7 @@
             this.registerButton.TabIndex = 0;
             this.registerButton.Text = "Register";
             this.registerButton.UseVisualStyleBackColor = true;
+            this.registerButton.Click += new System.EventHandler(this.registerButton_Click);
             // 
             // userNameSignUpTextBox
             // 
@@ -104,24 +105,24 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Confirm Password";
             // 
-            // button1
+            // exiteButton
             // 
-            this.button1.Font = new System.Drawing.Font("Tahoma", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(51, 314);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(426, 42);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Exit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.exiteButton.Font = new System.Drawing.Font("Tahoma", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.exiteButton.Location = new System.Drawing.Point(51, 314);
+            this.exiteButton.Name = "exiteButton";
+            this.exiteButton.Size = new System.Drawing.Size(426, 42);
+            this.exiteButton.TabIndex = 5;
+            this.exiteButton.Text = "Exit";
+            this.exiteButton.UseVisualStyleBackColor = true;
+            this.exiteButton.Click += new System.EventHandler(this.exiteButton_Click);
             // 
-            // FormSignUp
+            // SignUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(527, 389);
             this.ControlBox = false;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.exiteButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -129,7 +130,7 @@
             this.Controls.Add(this.passWordSignUpTextBox);
             this.Controls.Add(this.userNameSignUpTextBox);
             this.Controls.Add(this.registerButton);
-            this.Name = "FormSignUp";
+            this.Name = "SignUp";
             this.Text = "Sign Up";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -145,7 +146,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button exiteButton;
     }
 }
 

@@ -34,10 +34,11 @@
           <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PlayerName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="TotalGamesPlayed" Type="int" Nullable="false" />
-          <Property Name="Wins" Type="int" Nullable="false" />
-          <Property Name="Loses" Type="int" Nullable="false" />
-          <Property Name="Draws" Type="int" Nullable="false" />
+          <Property Name="Wins" Type="int" />
+          <Property Name="Loses" Type="int" />
+          <Property Name="Draws" Type="int" />
           <Property Name="LastLogin" Type="date" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="Player">
           <End Role="Players" Type="Self.Players" Multiplicity="1" />
@@ -164,10 +165,11 @@
           <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PlayerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="TotalGamesPlayed" Type="Int32" Nullable="false" />
-          <Property Name="Wins" Type="Int32" Nullable="false" />
-          <Property Name="Loses" Type="Int32" Nullable="false" />
-          <Property Name="Draws" Type="Int32" Nullable="false" />
+          <Property Name="Wins" Type="Int32" />
+          <Property Name="Loses" Type="Int32" />
+          <Property Name="Draws" Type="Int32" />
           <Property Name="LastLogin" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Games" Relationship="Self.Player1ToID" FromRole="Players" ToRole="Games" />
           <NavigationProperty Name="Games1" Relationship="Self.Player2ToID" FromRole="Players" ToRole="Games" />
           <NavigationProperty Name="Games2" Relationship="Self.Winner" FromRole="Players" ToRole="Games" />
@@ -298,6 +300,7 @@
                 <ScalarProperty Name="Loses" ColumnName="Loses" />
                 <ScalarProperty Name="Draws" ColumnName="Draws" />
                 <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

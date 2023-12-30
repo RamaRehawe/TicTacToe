@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Reflection.Emit;
@@ -20,6 +23,7 @@ namespace TicTacToe
 
             
         }
+        TicTacToeDbEntities dbEntities = new TicTacToeDbEntities();
 
         private void SignUpClickLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -33,5 +37,47 @@ namespace TicTacToe
         {
             this.Close();
         }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+            string username = UserNameLoginTextBox.Text.Trim();
+            string password = PassWordLoginTextBox.Text;
+
+            using (var transaction = dbEntities.Database.BeginTransaction())
+            {
+                try
+                {
+                    var user = dbEntities.Players.FirstOrDefault(u => u.PlayerName == username && u.Password == password);
+
+                    if (user != null)
+                    {
+                        // Update LastLogin using the same context
+                        user.LastLogin = DateTime.Now;
+                        Debug.WriteLine($"Entity State: {dbEntities.Entry(user).State}");
+
+                        dbEntities.SaveChanges();
+
+                        // Commit the transaction
+                        transaction.Commit();
+
+                        MessageBox.Show("Login successful!");
+                        this.Hide();
+                        PlayingBoard playingBoard = new PlayingBoard();
+                        playingBoard.FormClosed += (s, args) => this.Close();
+                        playingBoard.Show();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid username or password. Please try again.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"An error occurred while updating last login date: {ex.Message}");
+                }
+            }
+        }
+
     }
 }

@@ -29,10 +29,11 @@
     <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="PlayerName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="TotalGamesPlayed" Type="int" Nullable="false" />
-    <Property Name="Wins" Type="int" Nullable="false" />
-    <Property Name="Loses" Type="int" Nullable="false" />
-    <Property Name="Draws" Type="int" Nullable="false" />
+    <Property Name="Wins" Type="int" />
+    <Property Name="Loses" Type="int" />
+    <Property Name="Draws" Type="int" />
     <Property Name="LastLogin" Type="date" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <Association Name="Player">
     <End Role="Players" Type="Self.Players" Multiplicity="1" />

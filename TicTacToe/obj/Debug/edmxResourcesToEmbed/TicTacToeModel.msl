@@ -35,6 +35,7 @@
           <ScalarProperty Name="Loses" ColumnName="Loses" />
           <ScalarProperty Name="Draws" ColumnName="Draws" />
           <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
