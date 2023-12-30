@@ -74,7 +74,7 @@ namespace TicTacToe
             {
                 dbEntities.SaveChanges();
                 MessageBox.Show("Registration successful!");
-                this.Close();
+                //this.Close();
             }catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred during registration: {ex.Message}");
