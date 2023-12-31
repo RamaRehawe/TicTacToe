@@ -46,13 +46,14 @@ namespace TicTacToe
             var user = dbEntities.Players.FirstOrDefault(u=> u.PlayerName == username && u.Password == password);
             if (user != null)
             {
-                user.LastLogin = DateTime.Now;
                 try
                 {
-                    MessageBox.Show("Login successful!");
+                    string formattedLastLogin = user.LastLogin.HasValue ? user.LastLogin.Value.ToString("yyyy-MM-dd") : "never";
+                    MessageBox.Show($"Hello {user.PlayerName}. You have played {user.TotalGamesPlayed} games. You won: {user.Wins}, you lost: {user.Loses}, you tied: {user.Draws}. Last login for you was on {formattedLastLogin}.");
+                    user.LastLogin = DateTime.Now;
                     dbEntities.SaveChanges();
                     this.Hide();
-                    PlayingBoard playingBoard = new PlayingBoard();
+                    PlayingBoard playingBoard = new PlayingBoard(user.PlayerName);
                     playingBoard.FormClosed += (s, args) => this.Close();
                     playingBoard.Show();
                 }

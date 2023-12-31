@@ -26,3 +26,5 @@ C:\TicTacToe\TicTacToe\obj\Debug\TicTacToe.exe
 C:\TicTacToe\TicTacToe\obj\Debug\TicTacToe.pdb
 C:\TicTacToe\TicTacToe\bin\Debug\TicTacToeDb.mdf
 C:\TicTacToe\TicTacToe\bin\Debug\TicTacToeDb_log.ldf
+C:\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Forms.Draw.resources
+C:\TicTacToe\TicTacToe\obj\Debug\TicTacToe.Forms.Leaderboard.resources

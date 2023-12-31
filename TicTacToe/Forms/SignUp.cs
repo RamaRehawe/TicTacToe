@@ -66,16 +66,25 @@ namespace TicTacToe
             {
                 PlayerName = username,
                 Password = password,
-                LastLogin = DateTime.Now
+                LastLogin = DateTime.Now,
+                TotalGamesPlayed = 0,
+                Wins = 0,
+                Loses = 0,
+                Draws = 0
             };
             dbEntities.Players.Add(newPlayer);
-
+            var user = dbEntities.Players.FirstOrDefault(u => u.PlayerName == username);
+            
             try
             {
                 dbEntities.SaveChanges();
-                MessageBox.Show("Registration successful!");
-                //this.Close();
-            }catch (Exception ex)
+                MessageBox.Show("Register successful!");
+                this.Hide();
+                PlayingBoard playingBoard = new PlayingBoard(username);
+                playingBoard.FormClosed += (s, args) => this.Close();
+                playingBoard.Show();
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred during registration: {ex.Message}");
             }

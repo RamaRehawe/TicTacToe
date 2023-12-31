@@ -75,6 +75,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\Draw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Draw.Designer.cs">
+      <DependentUpon>Draw.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Leaderboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Leaderboard.Designer.cs">
+      <DependentUpon>Leaderboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SignUp.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +131,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TicTacToeModel.edmx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\Draw.resx">
+      <DependentUpon>Draw.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Leaderboard.resx">
+      <DependentUpon>Leaderboard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>

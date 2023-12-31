@@ -7,18 +7,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TicTacToe.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TicTacToe
 {
     public partial class PlayingBoard : Form
     {
+        private string currentPlayerName;
         private int childFormNumber = 0;
         bool turn = true; // true = X turn , false = O turn
         int turnCount = 0;
-        public PlayingBoard()
+        public PlayingBoard(string playerName)
         {
             InitializeComponent();
+            currentPlayerName = playerName;
         }
+        TicTacToeDbEntities dbEntities = new TicTacToeDbEntities();
 
         private void ShowNewForm(object sender, EventArgs e)
         {
@@ -52,8 +57,23 @@ namespace TicTacToe
         {
             Button b = (Button)sender;
             if (turn)
+            {
                 b.Text = "X";
-            else b.Text = "O";
+                player2Label.ForeColor = Color.Red;
+                player2Label.Font = new Font(player2Label.Font, FontStyle.Bold);
+
+                player1Lable.ForeColor = Color.Black;
+                player1Lable.Font = new Font(player1Lable.Font, FontStyle.Regular);
+            }
+            else
+            {
+                b.Text = "O";
+                player1Lable.ForeColor = Color.Red;
+                player1Lable.Font = new Font(player1Lable.Font, FontStyle.Bold);
+
+                player2Label.ForeColor = Color.Black;
+                player2Label.Font = new Font(player2Label.Font, FontStyle.Regular);
+            }
             turn = !turn;
             b.Enabled = false;
             turnCount++;
@@ -62,6 +82,7 @@ namespace TicTacToe
         }
         private void CheckForWinner()
         {
+            var player = dbEntities.Players.FirstOrDefault(u=> u.PlayerName == currentPlayerName);
             bool IsThereAWinner = false;
 
             // horizantel winner
@@ -91,16 +112,43 @@ namespace TicTacToe
                 DisabelButtons();
                 string winner = "";
                 if (turn)
-                    winner = "O";
-                else winner = "X";
-
-                MessageBox.Show(winner + " Wins!", "Yay");
+                {
+                    winner = "Player 2";
+                    player.Loses++;
+                }
+                else
+                {
+                    winner = "Player 1";
+                    player.Wins++;
+                }
+                if(winner == "Player 1")
+                    MessageBox.Show("Congratulations " + currentPlayerName + " You Win", "Yay");
+                else
+                    MessageBox.Show("Game Over " + currentPlayerName + " You Lost", "Bummer");
+                player.TotalGamesPlayed++;
+                try
+                {
+                    dbEntities.SaveChanges();
+                }catch
+                { }
             }
             else
             {
                 if(turnCount == 9)
                 {
-                    MessageBox.Show("Draw!", "Bummer!");
+                    
+                    player.Draws++;
+                    player.TotalGamesPlayed++;
+                    try
+                    {
+                        dbEntities.SaveChanges();
+                    }
+                    catch
+                    { }
+                    this.Hide();
+                    Draw draw = new Draw(currentPlayerName);
+                    draw.FormClosed += (s, args) => this.Close();
+                    draw.Show();
                 }
             }
 
@@ -113,8 +161,8 @@ namespace TicTacToe
 
                 foreach (Control c in Controls)
                 {
-                    Button b = (Button)c;
-                    b.Enabled = false;
+                    if(c is Button b)
+                        b.Enabled = false;
                 }
             }catch
             { }
@@ -122,18 +170,64 @@ namespace TicTacToe
 
         private void newGaToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            PlayingBoard_Load(sender, e);
             turn = true;
             turnCount = 0;
             try
             {
                 foreach(Control c in Controls)
                 {
-                    Button b = (Button)c;
-                    b.Enabled = true;
-                    b.Text = "";
+                    if(c is Button b)
+                    {
+                        b.Enabled = true;
+                        b.Text = "";
+
+                    }
                 }
-            }catch
-            { }
+            }catch (Exception ex)
+            {
+                Console.WriteLine($"Exception in newGaToolStripMenuItem_Click: {ex.Message}");
+            }
+        }
+
+        private void PlayingBoard_Load(object sender, EventArgs e)
+        {
+            player1Lable.ForeColor = Color.Red;
+            player1Lable.Font = new Font(player1Lable.Font, FontStyle.Bold);
+
+            player2Label.ForeColor = Color.Black;
+            player2Label.Font = new Font(player2Label.Font, FontStyle.Regular);
+        }
+
+        private void reportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Leaderboard leaderboard = new Leaderboard();
+            var topPlayers = dbEntities.Players
+                .OrderByDescending(p=> p.Wins)
+                .Take(10)
+                .Select(p=> new
+                {
+                    PlayerName = p.PlayerName,
+                    Wins = p.Wins,
+                    Loses = p.Loses,
+                    Draws = p.Draws,
+                    LastLogin = p.LastLogin
+                }).ToList();
+            DataTable leaderboardData = new DataTable();
+            leaderboardData.Columns.Add("PlayerName");
+            leaderboardData.Columns.Add("Wins");
+            leaderboardData.Columns.Add("Loses");
+            leaderboardData.Columns.Add("Ties");
+            leaderboardData.Columns.Add("LastLogin", typeof(DateTime));
+
+            foreach(var player in topPlayers)
+            {
+                leaderboardData.Rows.Add(player.PlayerName, player.Wins, 
+                    player.Loses, player.Draws, 
+                    player.LastLogin.HasValue ? player.LastLogin.Value.ToShortDateString() : "");
+            }
+            leaderboard.PopulateLeaderboard(leaderboardData);
+            leaderboard.ShowDialog();
         }
     }
 }
